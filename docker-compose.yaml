@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: postgres:9.4-alpine
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    volumes:
+      - .:/usr/src/app
+    command:  yarn run webpack-dev-server -- --color --progress --config config/webpack/development.js
+    environment:
+      - NODE_PATH=/usr/src/app/node_modules
+      - NODE_ENV=development
+    ports:
+      - "8080:8080"
+  web:
+    build: .
+    command: bin/rails s -p 3000 -b 0.0.0.0
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+      - node
+    ports:
+      - "3000:3000"

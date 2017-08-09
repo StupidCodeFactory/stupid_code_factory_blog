@@ -1,0 +1,7 @@
+%h1 Recent Articles
+
+- @articles.each do |article|
+  %article
+    %h3= article.title
+    %p
+      = article.body

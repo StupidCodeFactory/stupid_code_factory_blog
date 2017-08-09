@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title StupidCodeFactoryBlog
+    = csrf_meta_tags
+    = stylesheet_pack_tag 'application'
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'
+
+
+
+  %body
+    #top
+      #brand
+        = link_to 'StupidCodeFactory Blog Admin', admin_root_path
+      %nav
+        %ul
+          %li Articles
+          - if admin_author_signed_in?
+            %li= link_to 'sign out', logout_path , method: :delete
+
+    %p.notice
+      = notice
+    %p.alert
+      = alert
+    - if admin_author_signed_in?
+      = yield
+    - else
+      = link_to 'sign in', admin_author_github_omniauth_authorize_path, class: 'button'
