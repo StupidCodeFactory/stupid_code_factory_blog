@@ -7,7 +7,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 
-
+import "babel-polyfill";
 import 'imperavi-kube/dist/css/kube';
 import './app.scss';
 import React from 'react';
@@ -16,10 +16,17 @@ import { Provider} from 'react-redux';
 import Articles from '../components/articles';
 import store from '../store';
 
+import { fetchArticles } from '../actions/articles'
+
+
+let unsubscribe = store.subscribe(() =>
+    console.log(store.getState())
+)
+
+store.dispatch(fetchArticles())
 document.addEventListener('DOMContentLoaded', () => {
     const articlesId = document.getElementById('articles');
     if (articlesId) {
-        console.log(store)
         ReactDOM.render(
             <Provider store={store}>
                 <Articles />
@@ -29,3 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 })
+unsubscribe()
