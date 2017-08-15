@@ -38,6 +38,7 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router-redux": "next",
+    "react_ujs": "^2.2.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
     "resolve-url-loader": "^2.1.0",
