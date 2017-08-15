@@ -12,17 +12,19 @@ import 'imperavi-kube/dist/css/kube';
 import './app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, IndexRoute } from 'react-router';
 import { Provider} from 'react-redux';
 import Articles from '../components/articles';
 import store from '../store';
 
 import { fetchArticles } from '../actions/articles'
 
-
-let unsubscribe = store.subscribe(() =>
-    console.log(store.getState())
-)
-
+/*
+ * let unsubscribe = store.subscribe(() =>
+ *
+ *     console.log('Global DEBUD:', store.getState())
+ * )
+ * */
 store.dispatch(fetchArticles())
 document.addEventListener('DOMContentLoaded', () => {
     const articlesId = document.getElementById('articles');
@@ -36,4 +38,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 })
-unsubscribe()
+/* unsubscribe()*/

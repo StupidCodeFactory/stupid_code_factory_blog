@@ -5,16 +5,15 @@ import ArticleList            from './articles/list'
 
 class Articles extends React.Component {
     render() {
+        console.log(this.store)
         return (
             <ArticleList articles={this.props.articles}/>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        articles: state.articles
-    }
+const mapStateToProps = state => {
+    return state
 }
 
 export default connect(mapStateToProps)(Articles);

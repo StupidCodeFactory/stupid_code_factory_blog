@@ -1,9 +1,10 @@
 const initialState = [];
-export default function (state = initialState, action) {
+export const articles =  (state = initialState, action) => {
+
     switch(action.type) {
-        case 'FETCH_ARTICLES':
-            console.log('GO FETCH ARTICLES YOU CUNT')
-            return state;
+        case 'FETCH_ARTICLE':
+        case 'CREATE_ARTICLE':
+            return state.concat(action.article)
         default:
             return state;
     }
