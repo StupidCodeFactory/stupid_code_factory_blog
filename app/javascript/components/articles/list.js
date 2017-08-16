@@ -5,14 +5,24 @@ import ListItem from './listItem';
 
 class ArticleList extends React.Component {
     render() {
-        console.log('ArticleList', this.props)
+        console.log('ArticleList', this.props.articles)
         const listItems = this.props.articles.map( (article) => {
             return <ListItem key={article.id} article={article} />
         })
         return (
-            <ul>
-              {listItems}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>title</th>
+                  <th>published</th>
+                  <th>created at</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listItems}
+              </tbody>
+
+            </table>
         )
     }
 }

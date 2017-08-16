@@ -1,12 +1,13 @@
 import 'whatwg-fetch';
 
-export const fectchAPIArticles = (url, options) => {
-    return fetch(url, options).then(response => {
-        if(!response.ok) {
-            const error  = new Error(response.statusText);
-            error.response = response;
-            throw error;
-        }
+export default class API {
+  static fetchAPIarticles() {
+    return fetch('http://localhost:3000/api/articles.json')
+      .then(response => {
         return response.json();
-    })
+      })
+      .catch(error => {
+        return error;
+      })
+  }
 }

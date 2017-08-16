@@ -10,30 +10,26 @@
     = javascript_pack_tag 'application'
 
   %body
-
-    -# #top
-    -#   %nav#brand
-    -#     = link_to "Stupid Code Factory's Blog Admin", admin_root_path, class: 'upper'
-    -#   - if admin_author_signed_in?
-    -#     %nav
-    -#       %ul
-    -#         %li
-    -#           = link_to admin_articles_path do
-    -#             = icon('plus-square')
-    -#             article
-
-    -#         %li= link_to 'sign out', logout_path , method: :delete
-    -# .row.auto
-    -#   .col.col-8
-    -#     %p.notice
-    -#       = notice
-    -#     %p.alert
-    -#       = alert
-    -#   .col
-    -# .row
-    -#   .col.col-2
-    -#   .col.col-8
-    -#     - if true ||  admin_author_signed_in?
-    -#       = yield
-    -#     - else
-    -#       = link_to 'sign in', admin_author_github_omniauth_authorize_path, class: 'button'
+    - if admin_author_signed_in?
+      #app-container
+    - else
+      #top
+        %nav#brand
+          = link_to "Stupid Code Factory's Blog Admin", admin_root_path, class: 'upper'
+        -# %nav
+        -#   %ul
+        -#     %li
+        -#       = link_to admin_articles_path do
+          -#         = icon('plus-square')
+        -#         article
+      .row.auto
+        .col.col-8
+          %p.notice
+            = notice
+          %p.alert
+            = alert
+        .col
+      .row
+        .col.col-2
+        .col.col-8
+          = link_to 'sign in', admin_author_github_omniauth_authorize_path, class: 'button'

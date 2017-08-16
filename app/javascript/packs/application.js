@@ -10,32 +10,25 @@
 import "babel-polyfill";
 import 'imperavi-kube/dist/css/kube';
 import './app.scss';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route, IndexRoute } from 'react-router';
-import { Provider} from 'react-redux';
-import Articles from '../components/articles';
+import 'font-awesome/scss/font-awesome.scss';
+import React                       from 'react';
+import ReactDOM                    from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider }                from 'react-redux';
+
+import App   from '../components/App';
 import store from '../store';
-
-import { fetchArticles } from '../actions/articles'
-
-/*
- * let unsubscribe = store.subscribe(() =>
- *
- *     console.log('Global DEBUD:', store.getState())
- * )
- * */
-store.dispatch(fetchArticles())
+console.log(store)
 document.addEventListener('DOMContentLoaded', () => {
-    const articlesId = document.getElementById('articles');
-    if (articlesId) {
-        ReactDOM.render(
-            <Provider store={store}>
-                <Articles />
-            </Provider>,
-            articlesId
-        )
+  const appContainer = document.getElementById('app-container')
+  if (appContainer) {
+    ReactDOM.render((
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    ), appContainer)
+  }
 
-    }
 })
-/* unsubscribe()*/
