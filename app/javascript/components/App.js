@@ -1,8 +1,12 @@
 import React, {PropTypes} from 'react';
 import { connect }        from 'react-redux';
-import Header             from "./Header";
-import Articles           from "./Articles";
+import { Route }          from 'react-router-dom';
 import { fetchArticles }  from '../actions/articles';
+
+import Articles           from "./Articles";
+import Article            from "./Article";
+import Header from "../components/Header";
+
 
 class App extends React.Component {
     componentWillMount () {
@@ -13,7 +17,8 @@ class App extends React.Component {
         return (
             <div>
               <Header />
-              <Articles articles={this.props.articles} />
+              <Route exact path="/admin" component={Articles}/>
+              <Route exact path="/admin/articles:id" component={Article}/>
             </div>
         )
     }
