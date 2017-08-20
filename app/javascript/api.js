@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import Authentication from './authenticity';
 
 export const getArticles = () => {
   return fetch('http://localhost:3000/api/articles.json')
@@ -7,21 +8,40 @@ export const getArticles = () => {
 }
 
 export const getArticle = (articleId) => {
-    return fetch(`http://localhost:3000/api/articles/${articleId}.json`)
-        .then(res => res.json())
-        .catch(err => { throw err })
+  return fetch(`http://localhost:3000/api/articles/${articleId}.json`)
+    .then(res => res.json())
+    .catch(err => { throw err })
 }
 
 export const getArticlePreview = (articleId, body) => {
-    return fetch(
-        `http://localhost:3000/api/articles/${articleId}/preview.json`,
-        {
-            method: 'POST',
-            body: JSON.stringify({article_preview: body}),
-            headers: {"Content-Type": "application/json"}
-        })
-        .then(res => res.json())
-        .catch(err => {
-            throw err
-        })
+  const headers    = {"Content-Type": "application/json"};
+  const authHeader = Authentication.authenticityHeaders(headers);
+
+  return fetch(
+    `http://localhost:3000/api/articles/${articleId}/preview.json`,
+    {
+      method: 'POST',
+      body: JSON.stringify({preview: body}),
+      headers: authHeader
+    })
+    .then(res => res.json())
+    .catch(err => {
+      throw err
+    })
+}
+
+export const updateArticle = (articleId, payload) => {
+  const headers    = {"Content-Type": "application/json"};
+  const authHeader = Authentication.authenticityHeaders(headers);
+  return fetch(
+    `http://localhost:3000/api/articles/${articleId}.json`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+      headers: authHeader
+    })
+    .then(res => res.json())
+    .catch(err => {
+      throw err
+    })
 }

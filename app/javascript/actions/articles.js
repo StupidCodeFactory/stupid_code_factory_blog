@@ -1,5 +1,10 @@
 import * as types      from './types';
-import { getArticles, getArticle, getArticlePreview } from '../api';
+import {
+  getArticles,
+  getArticle,
+  getArticlePreview,
+  updateArticle
+} from '../api';
 import _ from 'lodash';
 
 export const fetchArticles = () => {
@@ -26,14 +31,27 @@ export const fetchArticle = (articleId) => {
   }
 }
 
-export const fetchArticlePreview = (articleId) => {
+export const fetchArticlePreview = (articleId, body) => {
   return (dispatch) => {
-    getArticlePreview(articleId)
-      .then(article => {
-        dispatch(fetchArticlePreviewSuccess(articlePreview))
+    getArticlePreview(articleId, body)
+      .then(articlePreview => {
+        dispatch(fetchArticlePreviewSuccess(articlePreview.article_preview))
       })
       .catch(error => {
         dispatch(fetchArticlePreviewFailed(error))
+      })
+  }
+}
+
+export const saveArticle = (articleId, payload) => {
+  console.log(articleId, payload)
+  return (dispatch) => {
+    updateArticle(articleId, payload)
+      .then(article => {
+        dispatch(fetchArticleSuccess(article))
+      })
+      .catch(error => {
+        throw error
       })
   }
 }
@@ -43,6 +61,7 @@ export const fetchArticlesSuccess = articles => {
 }
 
 export const fetchArticleSuccess = article => {
+  console.log('SUCCESS', article)
   return { type: types.ARTICLE_RECEIVED, payload: article }
 }
 

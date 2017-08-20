@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :articles, only: [:index, :show]
 
   namespace :api, format: :json do
-    resources :articles, only: [:index, :show, :create] do
+    resources :articles, only: [:index, :show, :create, :update] do
       resource :preview, only: :create
     end
   end
