@@ -13,11 +13,14 @@ import './app.scss';
 import 'font-awesome/scss/font-awesome.scss';
 import React                       from 'react';
 import ReactDOM                    from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider }                from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import App   from '../components/App';
-import Article from '../components/Article';
+import Articles from "../components/Articles";
+import Article  from '../components/Article';
+import Header   from "../components/Header";
+
 import store  from '../store';
 
 
@@ -27,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render((
       <Provider store={store}>
         <Router>
-          <App />
+          <App>
+            <Header />
+            <Route exact path="/admin" component={Articles} />
+            <Route path="/admin/articles/:id" component={Article}/>
+          </App>
         </Router>
       </Provider>
     ), appContainer)

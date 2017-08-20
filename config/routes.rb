@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
 
-  resources :articles, only: :index
+  resources :articles, only: [:index, :show]
 
   namespace :api, format: :json do
-    resources :articles, only: [:index, :show, :create]
+    resources :articles, only: [:index, :show, :create] do
+      resource :preview, only: :create
+    end
   end
   scope :admin do
     as :author do
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     devise_for :authors, controllers: { omniauth: 'admin/omniauth_callbacks' }
 
-    resources :articles, only: [:index]
+    resources :articles, only: [:index, :show]
     root to: "articles#index"
   end
 

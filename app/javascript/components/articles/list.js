@@ -1,13 +1,11 @@
-import React    from 'react';
+import React     from 'react';
 import PropTypes from 'prop-types'
-import ListItem from './listItem';
-
+import ListItem  from './ListItem';
 
 class ArticleList extends React.Component {
     render() {
-        console.log('ArticleList', this.props.articles)
-        const listItems = this.props.articles.map( (article) => {
-            return <ListItem key={article.id} article={article} />
+        const listItems = this.props.articles.data.map( (article) => {
+            return <ListItem match={this.props.match} key={article.id} article={article} />
         })
         return (
             <table>
@@ -27,16 +25,16 @@ class ArticleList extends React.Component {
     }
 }
 
-ArticleList.propTypes = {
-    articles: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            body: PropTypes.string.isRequired,
-            published: PropTypes.bool.isRequired,
-            updated_at: PropTypes.string.isRequired,
-            created_at: PropTypes.string.isRequired,
-        })
-    )}
-
-
+/* ArticleList.propTypes = {
+ *     articles: PropTypes.arrayOf(
+ *         PropTypes.shape({
+ *             id: PropTypes.string.isRequired,
+ *             body: PropTypes.string.isRequired,
+ *             published: PropTypes.bool.isRequired,
+ *             updated_at: PropTypes.string.isRequired,
+ *             created_at: PropTypes.string.isRequired,
+ *         })
+ *     )}
+ *
+ * */
 export default ArticleList
