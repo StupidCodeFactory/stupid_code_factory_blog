@@ -5,5 +5,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @article = Article.find(params.require(:id))
   end
 end

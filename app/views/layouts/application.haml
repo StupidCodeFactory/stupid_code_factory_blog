@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title StupidCodeFactoryBlog
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'frontend'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    #top
+      %nav#brand
+        = link_to "Stupid Code Factory's Blog Admin", root_path, class: 'upper'
+    = yield
+
+    = javascript_pack_tag 'frontend'
