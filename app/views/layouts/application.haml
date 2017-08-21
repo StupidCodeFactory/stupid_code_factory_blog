@@ -1,7 +1,9 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+
     %title StupidCodeFactoryBlog
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -10,7 +12,18 @@
   %body
     #top
       %nav#brand
-        = link_to "Stupid Code Factory's Blog Admin", root_path, class: 'upper'
-    = yield
+        = link_to "Stupid Code Factory's Blog", root_path, class: 'upper'
+    %main.row.gutters
+      %section.col.col-1
+      %section.col.col-8
+        = yield
+      %section.col.col-3.right-sidebar
+        = image_tag 'https://avatars3.githubusercontent.com/u/100796?v=4', class: 'w25'
 
+        .right-sidebar__intro-text.small.upper
+          My interest aren't that vast:
+          %ol
+            %li music
+            %li programming
+            %li east London's pub
     = javascript_pack_tag 'frontend'

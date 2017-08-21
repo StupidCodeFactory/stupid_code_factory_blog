@@ -39,7 +39,6 @@ class Article extends React.Component {
 
     newState['preview'] = props.articlePreview.body
     this.setState(newState);
-    Prism.highlightAll();
 
   }
   componentDidMount() {
@@ -81,12 +80,12 @@ class Article extends React.Component {
     }
 
     return (
-      <div className="row">
-        <div className="col col-6">
-          <h4>
+      <div className="row gutters">
+        <div className="col col-6 col col--padding">
+          <h4 className="header__border--bottom">
             Edit {this.state.title}
           </h4>
-
+          <button onClick={this.onFetchPreview}>preview</button>
           <form className="form" onSubmit={this.onSubmit}>
             <fieldset>
               <div className="form-item">
@@ -105,10 +104,9 @@ class Article extends React.Component {
             </fieldset>
           </form>
         </div>
-        <div className="col col-6">
+        <div className="col col-6 col--padding">
           <div className="group">
-            <h4 className="float-left">Article Preview</h4>
-            <a className="float-right button small" onClick={this.onFetchPreview}>preview</a>
+            <h4  className="header__border--bottom">Article Preview</h4>
           </div>
 
           <div dangerouslySetInnerHTML={{__html: this.state.preview}}/>

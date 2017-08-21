@@ -9,8 +9,12 @@
 
 import "babel-polyfill";
 import 'imperavi-kube/dist/css/kube';
+
+require('prismjs/prism');
+import Prism from 'prismjs/components/prism-core';
+require('prismjs/components/prism-ruby');
+
 import './app.scss';
-import 'font-awesome/scss/font-awesome.scss';
 import React                       from 'react';
 import ReactDOM                    from 'react-dom';
 import { Provider }                from 'react-redux';
