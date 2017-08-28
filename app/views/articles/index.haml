@@ -4,4 +4,4 @@
   %article
     %h3= article.title
     %p
-      = article.body
+      = GitHub::Markup.render_s(GitHub::Markups::MARKUP_TEXTILE, article.body).html_safe
