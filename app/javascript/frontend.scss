@@ -1,23 +1,23 @@
-$color-primary-0: #C5B47B;	// Main Primary color */
+$color-primary-0: #C5B47B;  // Main Primary color */
 $color-primary-1: #FFE387;
 $color-primary-2: #FFE798;
 $color-primary-3: #766E52;
 $color-primary-4: #12110E;
 
-$color-secondary-1-0: #B7B298;	// Main Secondary color (1) */
+$color-secondary-1-0: #B7B298;  // Main Secondary color (1) */
 $color-secondary-1-1: #FFF2AD;
 $color-secondary-1-2: #A8A17D;
 $color-secondary-1-3: #938B62;
 $color-secondary-1-4: #7E764B;
 
-$color-secondary-2-0: #FFCB51;	// Main Secondary color (2) */
+$color-secondary-2-0: #FFCB51;  // Main Secondary color (2) */
 $color-secondary-2-1: #FFFFFF;
 $color-secondary-2-2: #FFF1D1;
 $color-secondary-2-3: #FFB300;
 $color-secondary-2-4: #D19300;
 
 
-$color-complement-0: #373276;	// Main Complement color */
+$color-complement-0: #373276; // Main Complement color */
 $color-complement-1: #827FB2;
 $color-complement-2: #595494;
 $color-complement-3: #1E1959;
@@ -30,7 +30,7 @@ $color-complement-4: #0C083B;
 // Palette URL: http://paletton.com/#uid=15t0d0kzikuuJ5yAP8dK5ufFPNU */
 // As hex codes */
 
-$red-color-primary-0: #960023;	// Main Primary color */
+$red-color-primary-0: #960023;  // Main Primary color */
 $red-color-primary-1: #28020B;
 $red-color-primary-2: #3C000E;
 $red-color-primary-3: #DD0034;
@@ -72,60 +72,66 @@ $color-aluminum: #f8f8f8 !default;
 
 
 @import '~imperavi-kube/src/kube.scss';
-// @import '~imperavi-kube/dist/css/kube';
 @import '~prismjs/themes/prism';
 @import '~prismjs/themes/prism-okaidia';
-@import url('https://fonts.googleapis.com/css?family=Asap|Neuton|Neuton:400,700');
+@import url('https://fonts.googleapis.com/css?family=Abel|Asap:400,700');
+
+$font-size: 1.5rem;
+$line-height: 2rem;
+
 #top {
   background-color: $color-primary-4;
   display: flex;
-    align-items: center;
-    padding: 0 36px;
-    height: 56px;
-    border-bottom: 2px solid $red-color-primary-1;
-
-    #brand {
-        margin-right: 36px;
-    }
-    a {
-        text-decoration: none;
-        color: $color-secondary-1-2;
-    }
+  align-items: center;
+  padding: 0 36px;
+  height: 56px;
+  border-bottom: 2px solid $red-color-primary-1;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  #brand {
+    margin-right: 36px;
+  }
+  a {
+    text-decoration: none;
+    color: $color-secondary-1-1;
+  }
 
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Neuton', serif;
+  font-family: 'Asap', serif;
 }
 
 body {
-  background-color: $color-secondary-2-2;
-  font-family: 'Asap', sans-serif;
+  font-family: 'Abel', sans-serif;
 
   main {
-    h1, h2, h3 {
-      text-transform: uppercase;
-      font-weight: 700;
-
-    }
+    position: relative;
+    top: 56px;
     h4, h5, h6 {
       text-transform: capitalize;
-      font-weight: 400;
       text-decoration: underline;
 
       color: $color-primary-4;
     }
+    section {
+      padding: $line-height;
+      line-height: $line-height;
+      font-size: $font-size;
+      text-align: justify;
+    }
   }
+
 }
 
 .right-sidebar {
   background-color: $color-secondary-1-0;
   color: $color-secondary-1-1;
-  padding: 1.5em;
 }
 
 .right-sidebar__intro-text {
   font-weight: bold;
-  font-family: 'Neuton', serif;
+  font-family: 'Asap', serif;
 
 }
