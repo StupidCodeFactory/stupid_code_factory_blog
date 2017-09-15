@@ -1,0 +1,23 @@
+%header
+  .wrapper
+    .header
+      #brand
+        = link_to "Stupid Code Factory's Blog", root_path, class: 'upper'
+      %nav
+        %ul.unstyled
+          %li
+            = form_tag 'search', class: 'form' do
+              .form-item
+                .append
+                  = text_field_tag :search, '', class: 'small search'
+                  = button_tag 'Go', class: 'button small'
+          - if admin_author_signed_in?
+            %li
+              = link_to 'articles', admin_articles_path
+          - else
+            %li
+              = link_to 'articles', articles_path
+          %li
+            = link_to 'https://github.com/stupidcodefactory', target: '_blank' do
+              = icon 'github-square fa-3'
+              Github

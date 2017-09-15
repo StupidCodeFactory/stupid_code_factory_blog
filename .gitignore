@@ -21,4 +21,7 @@
 /node_modules
 .env
 .tmp
+spec/javascript/coverage/public/packs
+/public/packs-test
+/node_modules
 spec/javascript/coverage

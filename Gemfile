@@ -42,6 +42,8 @@ gem 'font-awesome-sass'
 gem 'react-rails'
 gem 'RedCloth'
 gem 'github-markup'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,4 +66,5 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'elasticsearch-extensions'
 end

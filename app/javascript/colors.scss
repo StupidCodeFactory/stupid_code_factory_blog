@@ -1,0 +1,72 @@
+// http://paletton.com/#uid=51f0d1kc7oKf7URcTDd9KeO732ek5jmWamwt8bl8aEiud2fQklSSH00++5PXBOhVC++qh
+$color-primary-0: #C5B47B;  // Main Primary color */
+$color-primary-1: #FFE387;
+$color-primary-2: #FFE798;
+$color-primary-3: #766E52;
+$color-primary-4: #12110E;
+
+$color-secondary-1-0: #B7B298;  // Main Secondary color (1) */
+$color-secondary-1-1: #FFF2AD;
+$color-secondary-1-2: #A8A17D;
+$color-secondary-1-3: #938B62;
+$color-secondary-1-4: #7E764B;
+
+$color-secondary-2-0: #FFCB51;  // Main Secondary color (2) */
+$color-secondary-2-1: #FFFFFF;
+$color-secondary-2-2: #FFF1D1;
+$color-secondary-2-3: #FFB300;
+$color-secondary-2-4: #D19300;
+
+
+$color-complement-0: #373276; // Main Complement color */
+$color-complement-1: #827FB2;
+$color-complement-2: #595494;
+$color-complement-3: #1E1959;
+$color-complement-4: #0C083B;
+
+
+// REDS
+// SASS style sheet */
+// Palette color codes */
+// Palette URL: http://paletton.com/#uid=15t0d0kzikuuJ5yAP8dK5ufFPNU */
+// As hex codes */
+
+$red-color-primary-0: #960023;  // Main Primary color */
+$red-color-primary-1: #28020B;
+$red-color-primary-2: #3C000E;
+$red-color-primary-3: #DD0034;
+$red-color-primary-4: #F60039;
+
+
+// Text
+$color-text: $color-primary-4 !default;
+$color-headings: $color-complement-4 !default;
+
+// Links
+$color-link: $color-secondary-1-2 !default;
+$color-link-hover: $color-secondary-1-3 !default;
+
+// Button
+$color-button-primary: $color-primary-0 !default;
+$color-button-primary-text: $color-primary-4 !default;
+$color-button-secondary: #313439 !default;
+$color-button-secondary-text: #fff !default;
+
+// States
+$color-error: #f03c69 !default;
+$color-success: #35beb1 !default;
+$color-warning: #f7ba45 !default;
+$color-focus: #1c86f2 !default;
+
+// Extra
+$color-inverted: #fff !default;
+$color-highlight: #edf2ff !default; // color-focus 15% opacity
+
+// Grayscale
+$color-black: #0d0d0e !default;
+$color-darkgray: #313439 !default;
+$color-midgray: #676b72 !default;
+$color-gray: #bdbdbd !default;
+$color-lightgray: #d4d4d4 !default;
+$color-silver: #e0e1e1 !default;
+$color-aluminum: #f8f8f8 !default;

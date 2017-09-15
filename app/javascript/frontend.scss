@@ -1,137 +1,99 @@
-$color-primary-0: #C5B47B;  // Main Primary color */
-$color-primary-1: #FFE387;
-$color-primary-2: #FFE798;
-$color-primary-3: #766E52;
-$color-primary-4: #12110E;
-
-$color-secondary-1-0: #B7B298;  // Main Secondary color (1) */
-$color-secondary-1-1: #FFF2AD;
-$color-secondary-1-2: #A8A17D;
-$color-secondary-1-3: #938B62;
-$color-secondary-1-4: #7E764B;
-
-$color-secondary-2-0: #FFCB51;  // Main Secondary color (2) */
-$color-secondary-2-1: #FFFFFF;
-$color-secondary-2-2: #FFF1D1;
-$color-secondary-2-3: #FFB300;
-$color-secondary-2-4: #D19300;
-
-
-$color-complement-0: #373276; // Main Complement color */
-$color-complement-1: #827FB2;
-$color-complement-2: #595494;
-$color-complement-3: #1E1959;
-$color-complement-4: #0C083B;
-
-
-// REDS
-// SASS style sheet */
-// Palette color codes */
-// Palette URL: http://paletton.com/#uid=15t0d0kzikuuJ5yAP8dK5ufFPNU */
-// As hex codes */
-
-$red-color-primary-0: #960023;  // Main Primary color */
-$red-color-primary-1: #28020B;
-$red-color-primary-2: #3C000E;
-$red-color-primary-3: #DD0034;
-$red-color-primary-4: #F60039;
-
-
-// Text
-$color-text: $color-primary-4 !default;
-$color-headings: $color-complement-4 !default;
-
-// Links
-$color-link: $red-color-primary-4 !default;
-$color-link-hover: $red-color-primary-1 !default;
-
-// Button
-$color-button-primary: #1c86f2 !default;
-$color-button-primary-text: #fff !default;
-$color-button-secondary: #313439 !default;
-$color-button-secondary-text: #fff !default;
-
-// States
-$color-error: #f03c69 !default;
-$color-success: #35beb1 !default;
-$color-warning: #f7ba45 !default;
-$color-focus: #1c86f2 !default;
-
-// Extra
-$color-inverted: #fff !default;
-$color-highlight: #edf2ff !default; // color-focus 15% opacity
-
-// Grayscale
-$color-black: #0d0d0e !default;
-$color-darkgray: #313439 !default;
-$color-midgray: #676b72 !default;
-$color-gray: #bdbdbd !default;
-$color-lightgray: #d4d4d4 !default;
-$color-silver: #e0e1e1 !default;
-$color-aluminum: #f8f8f8 !default;
-
-
+@import './colors.scss';
 @import '~imperavi-kube/src/kube.scss';
 @import '~prismjs/themes/prism';
 @import '~prismjs/themes/prism-okaidia';
 @import url('https://fonts.googleapis.com/css?family=Abel|Asap:400,700');
 
-$font-size: 1.5rem;
-$line-height: 2rem;
-
-#top {
-  background-color: $color-primary-4;
-  display: flex;
-  align-items: center;
-  padding: 0 36px;
-  height: 56px;
-  border-bottom: 2px solid $red-color-primary-1;
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  #brand {
-    margin-right: 36px;
-  }
-  a {
-    text-decoration: none;
-    color: $color-secondary-1-1;
-  }
-
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Asap', serif;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: 'Abel', sans-serif;
+  .page-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    max-width: 1128px;
+  }
+
+
+  header {
+    z-index: 10;
+    background-color: $color-primary-4;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      flex: 0 1 60%;
+      padding: 1em;
+    }
+
+
+    #brand {
+      a {
+        text-decoration: none;
+        color: $color-secondary-1-1;
+      }
+    }
+
+
+    nav {
+      flex: 0 1 450px;
+      text-transform: uppercase;
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        li form{
+          margin: 0;
+        }
+
+        li a {
+          text-decoration: none;
+          // font-weight: bold;
+        }
+      }
+
+    }
+
+  }
 
   main {
-    position: relative;
-    top: 56px;
+    flex: 1;
+
+    section {
+      padding: 1em;
+      heigth: 100%;
+      a {
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+    }
+
     h4, h5, h6 {
       text-transform: capitalize;
       text-decoration: underline;
+    }
 
-      color: $color-primary-4;
-    }
-    section {
-      padding: $line-height;
-      line-height: $line-height;
-      font-size: $font-size;
-      text-align: justify;
-    }
   }
 
-}
-
-.right-sidebar {
-  background-color: $color-secondary-1-0;
-  color: $color-secondary-1-1;
-}
-
-.right-sidebar__intro-text {
-  font-weight: bold;
-  font-family: 'Asap', serif;
+  footer {
+    background-color: $color-primary-4;
+    color: $color-secondary-1-1;
+    z-index: 10;
+  }
 
 }

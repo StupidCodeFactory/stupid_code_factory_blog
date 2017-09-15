@@ -8,13 +8,12 @@
 
 
 import "babel-polyfill";
-import 'imperavi-kube/dist/css/kube';
 
 require('prismjs/prism');
 import Prism from 'prismjs/components/prism-core';
 require('prismjs/components/prism-ruby');
 
-import './app.scss';
+import '../frontend';
 import React                       from 'react';
 import ReactDOM                    from 'react-dom';
 import { Provider }                from 'react-redux';
@@ -23,7 +22,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App   from '../components/App';
 import Articles from "../components/Articles";
 import Article  from '../components/Article';
-import Header   from "../components/Header";
 
 import store  from '../store';
 
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <Provider store={store}>
         <Router>
           <App>
-            <Header />
             <Route exact path="/admin" component={Articles} />
             <Route path="/admin/articles/:id" component={Article}/>
           </App>

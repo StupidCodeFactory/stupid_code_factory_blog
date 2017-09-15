@@ -3,12 +3,28 @@ ENV APP_HOME /usr/src/app/
 
 RUN mkdir $APP_HOME
 
-RUN apt-get update -y && apt-get install -y libpq-dev postgresql-client nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -y && apt-get install -y \
+    libpq-dev \
+    postgresql-client \
+    nodejs \
+    yarn
 
 ADD ./Gemfile* $APP_HOME
+ADD ./package.json $APP_HOME
+ADD ./yarn.lock $APP_HOME
+
+RUN gem update --system
+RUN gem install bundler
 
 WORKDIR $APP_HOME
-RUN bundle
 
+RUN bundle
+RUN ls -l
+RUN yarn install
 
 CMD ["bundle", "exec"]

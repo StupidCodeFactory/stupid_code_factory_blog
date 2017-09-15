@@ -81,8 +81,8 @@ class Article extends React.Component {
 
     return (
       <div className="row gutters">
-        <div className="col col-6 col col--padding">
-          <h4 className="header__border--bottom">
+        <div className="col col-6 col">
+          <h4>
             Edit {this.state.title}
           </h4>
           <button onClick={this.onFetchPreview}>preview</button>
@@ -104,9 +104,9 @@ class Article extends React.Component {
             </fieldset>
           </form>
         </div>
-        <div className="col col-6 col--padding">
+        <div className="col col-6">
           <div className="group">
-            <h4  className="header__border--bottom">Article Preview</h4>
+            <h4>Article Preview</h4>
           </div>
 
           <div dangerouslySetInnerHTML={{__html: this.state.preview}}/>

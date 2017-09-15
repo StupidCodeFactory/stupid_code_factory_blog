@@ -1,2 +1,7 @@
-%h2= @article.title
-= GitHub::Markup.render_s(GitHub::Markups::MARKUP_TEXTILE, @article.body).html_safe
+%article
+  %h3
+    = @article.title
+    %div.smaller
+      Published by StupidCodefactory, on #{@article.updated_at.to_date.to_s(:long_ordinal)}.
+
+  = GitHub::Markup.render_s(GitHub::Markups::MARKUP_TEXTILE, @article.body).html_safe
