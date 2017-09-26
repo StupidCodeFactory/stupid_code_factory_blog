@@ -20,6 +20,8 @@ jobs:
 
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
+      - run: sudo apt-get install python
+      - run: python --version
       - run: pip install awscli --upgrade --user
       # Store bundle cache
       - save_cache:
