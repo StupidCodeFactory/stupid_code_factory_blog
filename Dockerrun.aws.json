@@ -10,7 +10,7 @@
     {
       "name": "nginx-proxy-conf",
       "host": {
-        "sourcePath": "/usr/src/app/config/stupid-code-factory.conf"
+        "sourcePath": "/usr/src/app/config/stupid_code_factory_blog.conf"
       }
     }
   ],
