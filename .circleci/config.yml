@@ -22,7 +22,7 @@ jobs:
       - run: bundle install --path vendor/bundle
       - run: sudo apt-get install python-pip python-dev build-essential
       - run: sudo pip install --upgrade pip
-      - run: pip install awscli --upgrade --user
+
       # Store bundle cache
       - save_cache:
           key: rails-{{ checksum "Gemfile.lock" }}
@@ -50,8 +50,9 @@ jobs:
           path: test_results
 
       - run: |
+          pip install awscli --upgrade
           TAG=$CIRCLE_BRANCH-latest
-          docker build -t stupid-code-factory-blog .
+          docker build  -t stupid-code-factory-blog:$TAG .
           docker tag stupid-code-factory-blog:$TAG 466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:$TAG
           $(aws ecr get-login --no-include-email --region eu-west-2)
           docker push 466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:$TAG
