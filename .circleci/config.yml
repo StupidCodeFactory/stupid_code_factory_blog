@@ -16,6 +16,8 @@ jobs:
       - restore_cache:
           key: rails-{{ checksum "Gemfile.lock" }}
 
+      - setup_remote_docker
+
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
@@ -44,3 +46,9 @@ jobs:
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
+
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t   stupidcodefactory/stupid-code-factory-blog:$TAG .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push stupidcodefactory/stupid-code-factory-blog:$TAG
