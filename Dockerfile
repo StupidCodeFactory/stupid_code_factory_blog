@@ -1,4 +1,4 @@
-FROM ruby:2.4.1
+FROM ruby:2.4.2
 ENV APP_HOME /usr/src/app/
 
 RUN mkdir $APP_HOME
@@ -11,8 +11,7 @@ RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.
 RUN apt-get update -y && apt-get install -y \
     libpq-dev \
     postgresql-client \
-    nodejs \
-    yarn
+    nodejs
 
 ADD ./Gemfile* $APP_HOME
 ADD ./package.json $APP_HOME
@@ -24,7 +23,9 @@ RUN gem install bundler
 WORKDIR $APP_HOME
 
 RUN bundle
-RUN ls -l
+RUN npm install -g yarn
 RUN yarn install
+ADD . $APP_HOME
+
 
 CMD ["bundle", "exec"]
