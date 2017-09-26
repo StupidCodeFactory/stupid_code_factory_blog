@@ -30,7 +30,7 @@ jobs:
           bundle exec rake db:create db:schema:load --trace
           bundle exec rake db:migrate
         environment:
-          DATABASE_URL: "postgres://ubuntu@localhost:5432"
+          - DATABASE_URL: "postgres://ubuntu@localhost:5432"
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
