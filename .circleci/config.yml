@@ -48,7 +48,7 @@ jobs:
           path: test_results
 
       - run: |
-          TAG=0.1.$CIRCLE_BUILD_NUM
+          TAG=$CIRCLE_BRANCH-latest
           docker build -t   stupidcodefactory/stupid-code-factory-blog:$TAG .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push stupidcodefactory/stupid-code-factory-blog:$TAG
