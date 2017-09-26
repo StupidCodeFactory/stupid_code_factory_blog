@@ -30,8 +30,6 @@ jobs:
           command: |
             bundle exec rake db:create db:schema:load --trace
             bundle exec rake db:migrate
-          environment:
-            - DATABASE_URL: "postgres://postgres@localhost:5432"
 
       # Run rspec in parallel
       - type: shell
