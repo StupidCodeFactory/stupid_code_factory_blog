@@ -50,7 +50,7 @@ jobs:
           path: test_results
 
       - run: |
-          pip install awscli --upgrade
+          pip install awscli
           TAG=$CIRCLE_BRANCH-latest
           docker build  -t stupid-code-factory-blog:$TAG .
           docker tag stupid-code-factory-blog:$TAG 466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:$TAG
