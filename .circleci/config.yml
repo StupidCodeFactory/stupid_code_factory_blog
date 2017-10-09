@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    parallelism: 3
     working_directory: ~/stupid_code_factory_blog
     docker:
       - image: circleci/ruby:2.4.2-node
@@ -11,11 +10,6 @@ jobs:
       - image: elasticsearch
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache py-pip=9.0.1
-            pip install awscli
       # Restore bundle cache
       - restore_cache:
           key: rails-{{ checksum "Gemfile.lock" }}
@@ -26,7 +20,7 @@ jobs:
       - run: bundle install --path vendor/bundle
       - run: sudo apt-get install python-pip python-dev build-essential
       - run: sudo pip install --upgrade pip
-
+      - run: sudo pip install awscli
       # Store bundle cache
       - save_cache:
           key: rails-{{ checksum "Gemfile.lock" }}
@@ -52,7 +46,8 @@ jobs:
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
-      - run: sudo pip install awscli
+
+
       - deploy:
           name: Push application Docker image
           command: |
@@ -60,11 +55,6 @@ jobs:
               login="$(aws ecr get-login)"
               ${login}
               TAG=$CIRCLE_BRANCH-latest
-              docker tag app "466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:${CIRCLE_SHA1}"
+              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:${CIRCLE_SHA1}"
               docker push "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
             fi
-            - run: |
-          docker build  -t stupid-code-factory-blog:$TAG .
-          docker tag stupid-code-factory-blog:$TAG :$TAG
-          $(aws ecr get-login --no-include-email --region eu-west-2)
-          docker push 466565482925.dkr.ecr.eu-west-2.amazonaws.com/stupid-code-factory-blog:$TAG

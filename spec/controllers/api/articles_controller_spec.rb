@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::ArticlesController do
+RSpec.describe API::ArticlesController do
   include ActiveSupport::Testing::TimeHelpers
   let!(:articles) { create_list(:article, 5) }
   let(:parsed_json) { JSON.parse(response.body) }
