@@ -14,10 +14,10 @@ jobs:
           name: configure aws
           command:
             aws configure set default.region eu-west-1
-      # - save_cache:
-      #     key: pip-{{ checksum "requirements.txt" }}
-      #     paths:
-      #       - ~/.local
+      - save_cache:
+          key: pip-{{ checksum "requirements.txt" }}
+          paths:
+            - ~/.local
       - setup_remote_docker:
           reusable: true
       - deploy:

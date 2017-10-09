@@ -22,11 +22,11 @@ RUN gem install bundler
 
 WORKDIR $APP_HOME
 
-RUN bundle
+RUN bundle --jobs 4 --deployment --without development test
 RUN npm install -g yarn
 RUN node --version
 RUN yarn install
 ADD . $APP_HOME
-
+RUN RAILS_ENV=production SECRET_KEY_BASE=baz GITHUB_APP_ID=foo GITHUB_APP_SECRET=bar DATABASE_URL=baz bin/rails assets:precompile
 
 CMD ["bundle", "exec"]
