@@ -24,6 +24,7 @@ WORKDIR $APP_HOME
 
 RUN bundle
 RUN npm install -g yarn
+RUN node --version
 RUN yarn install
 ADD . $APP_HOME
 
