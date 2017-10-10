@@ -28,8 +28,8 @@ jobs:
               $(aws ecr get-login --no-include-email --region eu-west-2)
               ECR_ENDPOINT=466565482925.dkr.ecr.eu-west-2.amazonaws.com
               docker build -t  "stupid-code-factory-blog:${CIRCLE_SHA1}" .
-              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
+              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:latest"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:latest"
             fi
   build:
     working_directory: ~/stupid_code_factory_blog
