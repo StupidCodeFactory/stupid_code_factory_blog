@@ -67,5 +67,5 @@ end
 group :test do
   gem 'capybara'
   gem 'elasticsearch-extensions'
-  gem 'rspec_junit_formatter'
+  # gem 'rspec_junit_formatter'
 end
