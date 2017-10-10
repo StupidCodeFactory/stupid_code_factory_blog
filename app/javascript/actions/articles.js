@@ -44,7 +44,6 @@ export const fetchArticlePreview = (articleId, body) => {
 }
 
 export const saveArticle = (articleId, payload) => {
-  console.log(articleId, payload)
   return (dispatch) => {
     updateArticle(articleId, payload)
       .then(article => {
@@ -61,7 +60,6 @@ export const fetchArticlesSuccess = articles => {
 }
 
 export const fetchArticleSuccess = article => {
-  console.log('SUCCESS', article)
   return { type: types.ARTICLE_RECEIVED, payload: article }
 }
 

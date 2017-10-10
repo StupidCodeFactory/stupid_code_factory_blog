@@ -7,7 +7,7 @@ function* fetchArticles(action) {
         const response = yield call(fectchAPIArticles, '/api/articles')
         yield put({type: 'ARTICLE_RECEIVED', articles: response})
     } catch(e) {
-        console.log(e)
+
     }
 }
 
