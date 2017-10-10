@@ -20,7 +20,7 @@ import { Provider }                from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import App   from '../components/App';
-import Articles from "../components/Articles.js";
+import Articles from '../components/Articles.js';
 import Article  from '../components/Article';
 
 import store  from '../store';
