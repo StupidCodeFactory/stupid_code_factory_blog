@@ -9,28 +9,50 @@ jobs:
       - run: echo 'export PATH=$PATH:~/.local/bin' >> $BASH_ENV
       # - restore_cache:
       #     key: pip-{{ checksum "requirements.txt" }}
+      - run: sudo apt-get install jq
       - run: pip install --upgrade --user -r requirements.txt
       - run:
           name: configure aws
           command:
-            aws configure set default.region eu-west-1
+            aws configure set default.region eu-west-2
       - save_cache:
           key: pip-{{ checksum "requirements.txt" }}
           paths:
             - ~/.local
       - setup_remote_docker:
           reusable: true
-      - deploy:
+      - run:
           name: Push application Docker image
           command: |
             export PATH="$PATH:~/.local/bin"
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
-              ECR_ENDPOINT=466565482925.dkr.ecr.eu-west-2.amazonaws.com
               docker build -t  "stupid-code-factory-blog:${CIRCLE_SHA1}" .
-              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:latest"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:latest"
+              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
             fi
+      - deploy:
+          name: deploy
+          command: |
+            SERVICE_NAME="web"
+            CLUSTER="stupid-code-factory-blog"
+            IMAGE_VERSION="v_"${CIRCLE_BUILD_NUM}""
+            TASK_FAMILY="web"
+            TASK_DEFINITION="web"
+            # Create a new task definition for this build
+            sed -e "s;%CIRCLE_BUILD_NUM%;${CIRCLE_BUILD_NUM};g" config/stupid-code-factory-blog.json > stupid-code-factory-blog-v_${CIRCLE_BUILD_NUMBER}.json
+            sed -i "s;%ECR_ENDPOINT%;${ECR_ENDPOINT};g" stupid-code-factory-blog-v_${CIRCLE_BUILD_NUMBER}.json
+            aws ecs register-task-definition --family ${TASK_FAMILY=} --cli-input-json file://stupid-code-factory-blog-v_${BUILD_NUMBER}.json
+
+            # Update the service with the new task definition and desired count
+            TASK_REVISION=`aws ecs describe-task-definition --task-definition  %{TASK_DEFINITION} | jq ".taskDefinition.revision"
+            DESIRED_COUNT=`aws ecs describe-services --cluster ${CLUSTER} --services ${SERVICE_NAME} | jq ".services | map(select(.serviceName == \"${SERVICE_NAME}\"))[0].desiredCount"`
+            if [ ${DESIRED_COUNT} = "0" ]; then
+              DESIRED_COUNT="1"
+            fi
+
+            aws ecs update-service --cluster default --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY}:${TASK_REVISION} --desired-count ${DESIRED_COUNT}
+
   build:
     working_directory: ~/stupid_code_factory_blog
     docker:
