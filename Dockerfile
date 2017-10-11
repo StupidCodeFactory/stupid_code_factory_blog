@@ -29,4 +29,6 @@ RUN yarn install
 ADD . $APP_HOME
 RUN RAILS_ENV=production SECRET_KEY_BASE=baz GITHUB_APP_ID=foo GITHUB_APP_SECRET=bar DATABASE_URL=baz bin/rails assets:precompile
 
+EXPOSE 3000
+
 CMD ["bundle", "exec"]

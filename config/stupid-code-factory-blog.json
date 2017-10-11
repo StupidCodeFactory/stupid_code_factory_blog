@@ -2,7 +2,7 @@
     "taskDefinition": {
         "family": "web",
         "containerDefinitions": [
-                "image": "%ECR_ENPOINT%/stupid-code-factory-blog:%CIRCLE_BUILD_NUM%",
+                "image": "%ECR_ENDPOINT%/stupid-code-factory-blog:%CIRCLE_BUILD_NUM%",
                 "logConfiguration": {
                     "logDriver": "awslogs",
                     "options": {
