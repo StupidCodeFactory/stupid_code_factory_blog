@@ -1,28 +1,30 @@
 {
-    "taskDefinition": {
-        "family": "web",
-        "containerDefinitions": [
-                "image": "%ECR_ENDPOINT%/stupid-code-factory-blog:%CIRCLE_BUILD_NUM%",
-                "logConfiguration": {
-                    "logDriver": "awslogs",
-                    "options": {
-                        "awslogs-group": "stupid-code-factory-blog",
-                        "awslogs-region": ""
-                    }
-                },
-                "cpu": 0,
-                "portMappings": [],
-                "entryPoint": [],
-                "memory": 512,
-                "command": [
-                    "rails",
-                    "s",
-                    "-b",
-                    "0.0.0.0"
-                ],
-                "essential": true,
-            }
+  "taskDefinition": {
+    "family": "web",
+    "containerDefinitions": [
+      {
+        "image": "%ECR_ENDPOINT%/stupid-code-factory-blog:%CIRCLE_BUILD_NUM%",
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "stupid-code-factory-blog",
+            "awslogs-region": ""
+          }
+        },
+        "cpu": 0,
+        "portMappings": [],
+        "entryPoint": [],
+        "memory": 512,
+        "command": [
+          "rails",
+          "s",
+          "-b",
+          "0.0.0.0"
         ],
-        "revision": 3
-    }
+        "essential": true
+      }
+    ],
+    "revision": 3
+
+  }
 }

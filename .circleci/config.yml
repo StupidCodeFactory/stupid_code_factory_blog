@@ -27,13 +27,17 @@ jobs:
             export PATH="$PATH:~/.local/bin"
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
-              docker build -t  "stupid-code-factory-blog:${CIRCLE_SHA1}" .
+              docker build -t "stupid-code-factory-blog:${CIRCLE_SHA1}" .
+              docker build -t "stupid-code-factory-nginx:${CIRCLE_SHA1}" -f Dockerfile.nginx .
               docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
+              docker tag  "stupid-code-factory-nginx:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_SHA1}"
               docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_SHA1}"
             fi
       - deploy:
           name: deploy
           command: |
+            set -x
             SERVICE_NAME="web"
             CLUSTER="stupid-code-factory-blog"
             IMAGE_VERSION="v_"${CIRCLE_BUILD_NUM}""
