@@ -12,7 +12,6 @@ jobs:
       - run:
           name: install jq-1.5
           command: |
-            curl -O
             wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
             chmod +x jq-linux64
             sudo mv jq-linux64 /usr/local/bin/jq
@@ -34,12 +33,12 @@ jobs:
             export PATH="$PATH:~/.local/bin"
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
-              docker build -t "stupid-code-factory-blog:${CIRCLE_SHA1}" .
-              docker build -t "stupid-code-factory-nginx:${CIRCLE_SHA1}" -f Dockerfile.nginx .
-              docker tag  "stupid-code-factory-blog:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
-              docker tag  "stupid-code-factory-nginx:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_SHA1}"
+              docker build -t "stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}" .
+              docker build -t "stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}" -f Dockerfile.nginx .
+              docker tag  "stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}"
+              docker tag  "stupid-code-factory-nginx:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}"
             fi
       - deploy:
           name: deploy
