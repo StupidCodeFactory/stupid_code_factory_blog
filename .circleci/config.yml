@@ -66,7 +66,7 @@ jobs:
             nginx_container_definition=$(echo $task_definition | jq --arg name nginx '.taskDefinition.containerDefinitions | map(select(.name == $name))[0]')
 
             rails_container_definition=$(echo $rails_container_definition | jq --arg image "${ECR_ENDPOINT}/${CLUSTER}:${CIRCLE_BUILD_NUM}" '.image = $image')
-            nginx_container_definition=$(echo $rails_container_definition | jq --arg image "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" '.image = $image')
+            nginx_container_definition=$(echo $nginx_container_definition | jq --arg image "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" '.image = $image')
 
 
             current_revision=$(echo $task_definition | jq -r '.taskDefinition.revision')
