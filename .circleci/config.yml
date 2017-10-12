@@ -37,25 +37,41 @@ jobs:
       - deploy:
           name: deploy
           command: |
-            set -x
-            SERVICE_NAME="web"
-            CLUSTER="stupid-code-factory-blog"
-            IMAGE_VERSION="v_"${CIRCLE_BUILD_NUM}""
-            TASK_FAMILY="web"
-            TASK_DEFINITION="web"
-            # Create a new task definition for this build
-            sed -e "s;%CIRCLE_BUILD_NUM%;${CIRCLE_BUILD_NUM};g" config/stupid-code-factory-blog.json > stupid-code-factory-blog-v_${CIRCLE_BUILD_NUMBER}.json
-            sed -i "s;%ECR_ENDPOINT%;${ECR_ENDPOINT};g" stupid-code-factory-blog-v_${CIRCLE_BUILD_NUMBER}.json
-            aws ecs register-task-definition --family ${TASK_FAMILY=} --cli-input-json file://stupid-code-factory-blog-v_${BUILD_NUMBER}.json
+            set -eo pipefail
 
-            # Update the service with the new task definition and desired count
-            TASK_REVISION=`aws ecs describe-task-definition --task-definition  %{TASK_DEFINITION} | jq ".taskDefinition.revision"
-            DESIRED_COUNT=`aws ecs describe-services --cluster ${CLUSTER} --services ${SERVICE_NAME} | jq ".services | map(select(.serviceName == \"${SERVICE_NAME}\"))[0].desiredCount"`
-            if [ ${DESIRED_COUNT} = "0" ]; then
-              DESIRED_COUNT="1"
-            fi
+            CLUSTER=stupid-code-factory-blog
+            SERVICE_NAME=web
+            ECR_ENDPOINT=466565482925.dkr.ecr.eu-west-2.amazonaws.com
+            DESIRED_COUNT=1
+            get_task_definition() {
+              service=$1
+              aws ecs describe-services --cluster $CLUSTER --services $SERVICE_NAME
+            }
 
-            aws ecs update-service --cluster default --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY}:${TASK_REVISION} --desired-count ${DESIRED_COUNT}
+            get_task_definition_arn() {
+              get_task_definition $1 | jq -r '.services[0].taskDefinition'
+            }
+
+            task_definition_arn=$(get_task_definition_arn "web")
+            task_definition_name=${task_definition_arn##*/}
+            task_definition=$(aws ecs describe-task-definition --task-definition $task_definition_name)
+            rails_container_definition=$(echo $task_definition | jq --arg name rails '.taskDefinition.containerDefinitions | map(select(.name == $name))[0]')
+            nginx_container_definition=$(echo $task_definition | jq --arg name nginx '.taskDefinition.containerDefinitions | map(select(.name == $name))[0]')
+
+            rails_container_definition=$(echo $rails_container_definition | jq --arg image "${ECR_ENDPOINT}/${CLUSTER}:${CIRCLE_BUILD_NUMBER}" '.image = $image')
+
+
+            current_revision=$(echo $task_definition | jq -r '.taskDefinition.revision')
+            task_family=$(echo $task_definition | jq -r '.taskDefinition.family')
+
+            cat config/web-task-definition.json | jq --argjson rails "${rails_container_definition}" --argjson nginx "${nginx_container_definition}"  ".containerDefinitions[0]= \$rails | .containerDefinitions[1]= \$nginx" > tmp/deploy.json
+            task_revision=$(aws ecs register-task-definition --cli-input-json file://tmp/deploy.json | jq '.taskDefinition.revision')
+
+            aws ecs update-service \
+                --cluster ${CLUSTER} \
+                --service ${SERVICE_NAME} \
+                --task-definition ${task_family}:${task_revision} \
+                --desired-count 1
 
   build:
     working_directory: ~/stupid_code_factory_blog
