@@ -33,12 +33,12 @@ jobs:
             export PATH="$PATH:~/.local/bin"
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
-              docker build -t "stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}" .
-              docker build -t "stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}" -f Dockerfile.nginx .
-              docker tag  "stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}"
-              docker tag  "stupid-code-factory-nginx:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUMBER}"
-              docker push "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUMBER}"
+              docker build -t "stupid-code-factory-blog:${CIRCLE_BUILD_NUM}" .
+              docker build -t "stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" -f Dockerfile.nginx .
+              docker tag  "stupid-code-factory-blog:${CIRCLE_BUILD_NUM}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUM}"
+              docker tag  "stupid-code-factory-nginx:${CIRCLE_SHA1}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUM}"
+              docker push "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}"
             fi
       - deploy:
           name: deploy
@@ -64,7 +64,7 @@ jobs:
             rails_container_definition=$(echo $task_definition | jq --arg name rails '.taskDefinition.containerDefinitions | map(select(.name == $name))[0]')
             nginx_container_definition=$(echo $task_definition | jq --arg name nginx '.taskDefinition.containerDefinitions | map(select(.name == $name))[0]')
 
-            rails_container_definition=$(echo $rails_container_definition | jq --arg image "${ECR_ENDPOINT}/${CLUSTER}:${CIRCLE_BUILD_NUMBER}" '.image = $image')
+            rails_container_definition=$(echo $rails_container_definition | jq --arg image "${ECR_ENDPOINT}/${CLUSTER}:${CIRCLE_BUILD_NUM}" '.image = $image')
 
 
             current_revision=$(echo $task_definition | jq -r '.taskDefinition.revision')
