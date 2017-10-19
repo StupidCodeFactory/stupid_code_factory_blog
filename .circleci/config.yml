@@ -26,10 +26,10 @@ jobs:
             sudo apt-get update && sudo apt-get remove yarn && sudo apt-get upgrade yarn
             yarn -v
       - restore_cache:
-          key: stupid-code-factory-blog--js-v1-{{ checksum "yarn.lock" }}
+          key: stupid-code-factory-blog-js-v1-{{ checksum "yarn.lock" }}
       - run: yarn install
       - save_cache:
-          key: stupid-code-factory-blog--js-v1-{{ checksum "yarn.lock" }}
+          key: stupid-code-factory-blog-js-v1-{{ checksum "yarn.lock" }}
           paths:
             - .node_modules
       - run:
@@ -73,10 +73,11 @@ jobs:
           command: |
             set -x
             export PATH="$PATH:~/.local/bin"
+            ls -la
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
-              docker build -t "stupid-code-factory-blog:${CIRCLE_BUILD_NUM}" .
               docker build -t "stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" -f Dockerfile.nginx .
+              docker build -t "stupid-code-factory-blog:${CIRCLE_BUILD_NUM}" .
               docker tag  "stupid-code-factory-blog:${CIRCLE_BUILD_NUM}" "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUM}"
               docker tag  "stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" "${ECR_ENDPOINT}/stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}"
               docker push "${ECR_ENDPOINT}/stupid-code-factory-blog:${CIRCLE_BUILD_NUM}"
