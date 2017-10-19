@@ -90,7 +90,7 @@ jobs:
             CLUSTER=stupid-code-factory-blog
             SERVICE_NAME=web
             ECR_ENDPOINT=466565482925.dkr.ecr.eu-west-2.amazonaws.com
-            DESIRED_COUNT=1
+
             get_task_definition() {
               service=$1
               aws ecs describe-services --cluster $CLUSTER --services $SERVICE_NAME
@@ -113,8 +113,14 @@ jobs:
             current_revision=$(echo $task_definition | jq -r '.taskDefinition.revision')
             task_family=$(echo $task_definition | jq -r '.taskDefinition.family')
 
+            aws ecs update-service \
+                --cluster ${CLUSTER} \
+                --service ${SERVICE_NAME} \
+                --task-definition ${task_family}:${current_revision} \
+                --desired-count 0
+
             cat config/web-task-definition.json | jq --argjson rails "${rails_container_definition}" --argjson nginx "${nginx_container_definition}"  ".containerDefinitions[0]= \$rails | .containerDefinitions[1]= \$nginx" > tmp/deploy.json
-            task_revision=$(aws ecs register-task-definition --cli-input-json file://tmp/deploy.json | jq '.taskDefinition.revision')
+            task_revision=$(aws ecs register-task-definition  --cli-input-json file://tmp/deploy.json | jq '.taskDefinition.revision')
 
             aws ecs update-service \
                 --cluster ${CLUSTER} \

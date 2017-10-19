@@ -1,9 +1,10 @@
 FROM nginx:alpine
 
+RUN rm -rf /etc/nginx/sites-available/default /usr/share/nginx/html/*
+
 COPY public /usr/share/nginx/html
 
-RUN rm -rf /etc/nginx/sites-available/default
-ADD config/stupid_code_factory_blog.conf /etc/nginx/sites-enabled/nginx.conf
+ADD config/stupid_code_factory_blog.conf /etc/nginx/conf.d/
 
 EXPOSE 80
 EXPOSE 443

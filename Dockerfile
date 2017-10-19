@@ -18,7 +18,7 @@ RUN bundle --jobs 4 --deployment --without development test
 
 ADD . $APP_HOME
 
-RUN rm -rf public app/javascript
+RUN rm -rf public
 
 EXPOSE 3000
 
