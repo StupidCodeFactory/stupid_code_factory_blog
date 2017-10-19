@@ -73,7 +73,6 @@ jobs:
           command: |
             set -x
             export PATH="$PATH:~/.local/bin"
-            ls -la
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               $(aws ecr get-login --no-include-email --region eu-west-2)
               docker build -t "stupid-code-factory-nginx:${CIRCLE_BUILD_NUM}" -f Dockerfile.nginx .
