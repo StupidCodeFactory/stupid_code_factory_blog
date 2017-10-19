@@ -19,11 +19,19 @@ jobs:
       - run:
           name: update yarn
           command: |
+            sudo rm -f `which yarn`
             sudo apt-get update && sudo apt-get install apt-transport-https
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-            sudo apt-get update && sudo apt-get install yarn
+            sudo apt-get update && sudo apt-get remove yarn && sudo apt-get upgrade yarn
             yarn -v
+      - restore_cache:
+          key: stupid-code-factory-blog--js-v1-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: stupid-code-factory-blog--js-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - .node_modules
       - run:
           name: compile assets
           command: |
