@@ -48,7 +48,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: public
+          at: ./
       - run: echo 'export PATH=$PATH:~/.local/bin' >> $BASH_ENV
       - run:
           name: install jq-1.5
