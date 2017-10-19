@@ -2,7 +2,7 @@
   "name": "stupid_code_factory_blog",
   "private": true,
   "engines": {
-    "yarn": "1.2.0",
+    "yarn": "1.2.1",
     "node": "8.7.0"
   },
   "scripts": {

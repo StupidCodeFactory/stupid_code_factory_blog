@@ -11,5 +11,5 @@ ADD config/stupid_code_factory_blog.conf /etc/nginx/sites-enabled/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
-
+ADD ./public $APP_HOME
 CMD [ "nginx", "-g", "daemon off;" ]
