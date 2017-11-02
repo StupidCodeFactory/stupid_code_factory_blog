@@ -10,8 +10,6 @@ RUN apt-get update -y && apt-get install -y \
 
 ADD ./Gemfile* $APP_HOME
 
-RUN gem update --system
-
 WORKDIR $APP_HOME
 
 RUN bundle --jobs 4 --deployment --without development test
