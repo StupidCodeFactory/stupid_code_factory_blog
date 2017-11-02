@@ -16,7 +16,7 @@ DESIRED_COUNT=1
 
 get_task_definition() {
   service=$1
-  aws ecs describe-services --cluster $CLUSTER --services $SERVICE_NAME
+  aws ecs describe-services --cluster $CLUSTER --services $AWS_SERVICE_NAME
 }
 
 get_task_definition_arn() {
@@ -40,7 +40,7 @@ task_family=$(echo $task_definition | jq -r '.taskDefinition.family')
 
 aws ecs update-service \
     --cluster ${CLUSTER} \
-    --service ${SERVICE_NAME} \
+    --service ${AWS_SERVICE_NAME} \
     --task-definition ${task_family}:${current_revision} \
     --desired-count 0
 
@@ -49,6 +49,6 @@ task_revision=$(aws ecs register-task-definition  --cli-input-json file://tmp/de
 
 aws ecs update-service \
     --cluster ${CLUSTER} \
-    --service ${SERVICE_NAME} \
+    --service ${AWS_SERVICE_NAME} \
     --task-definition ${task_family}:${task_revision} \
     --desired-count 1
