@@ -8,7 +8,7 @@ export const getArticles = () => {
 }
 
 export const getArticle = (articleId) => {
-  return fetch(`http://localhost:3000/api/articles/${articleId}.json`)
+  return fetch(`/api/articles/${articleId}.json`)
     .then(res => res.json())
     .catch(err => { throw err })
 }
@@ -18,7 +18,7 @@ export const getArticlePreview = (articleId, body) => {
   const authHeader = Authentication.authenticityHeaders(headers);
 
   return fetch(
-    `http://localhost:3000/api/articles/${articleId}/preview.json`,
+    `/api/articles/${articleId}/preview.json`,
     {
       method: 'POST',
       body: JSON.stringify({preview: body}),
@@ -34,7 +34,7 @@ export const updateArticle = (articleId, payload) => {
   const headers    = {"Content-Type": "application/json"};
   const authHeader = Authentication.authenticityHeaders(headers);
   return fetch(
-    `http://localhost:3000/api/articles/${articleId}.json`,
+    `/api/articles/${articleId}.json`,
     {
       method: 'PATCH',
       body: JSON.stringify(payload),
