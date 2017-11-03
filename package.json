@@ -2,7 +2,8 @@
   "name": "stupid_code_factory_blog",
   "private": true,
   "engines": {
-    "yarn": "1.3.2"
+    "yarn": "1.0.2",
+    "node": "6.11.1"
   },
   "scripts": {
     "test": "NODE_ENV=test karma start",
