@@ -11,7 +11,7 @@ class Articles extends React.Component {
 
     render() {
         return (
-            <ArticleList {...this.props}/>
+          <ArticleList {...this.props}/>
         );
     }
 }

@@ -55,6 +55,18 @@ export const saveArticle = (articleId, payload) => {
   }
 }
 
+export const createArticle = (payload) => {
+  return (dispatch) => {
+    createArticle(payload)
+      .then(article => {
+        dispatch(fetchArticleSuccess(article))
+      })
+      .catch(error => {
+        throw error
+      })
+  }
+}
+
 export const fetchArticlesSuccess = articles => {
   return { type: types.ARTICLES_RECEIVED, articles: _.values(articles) }
 }

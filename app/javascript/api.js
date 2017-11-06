@@ -45,3 +45,19 @@ export const updateArticle = (articleId, payload) => {
       throw err
     })
 }
+
+export const createArticle = (payload) => {
+  const headers    = {"Content-Type": "application/json"};
+  const authHeader = Authentication.authenticityHeaders(headers);
+  return fetch(
+    `/api/articles/new.json`,
+    {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: authHeader
+    })
+    .then(res => res.json())
+    .catch(err => {
+      throw err
+    })
+}

@@ -17,27 +17,22 @@ import '../frontend';
 import React                       from 'react';
 import ReactDOM                    from 'react-dom';
 import { Provider }                from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import App   from '../components/App';
 import Articles from '../components/Articles.js';
-import Article  from '../components/Article';
 
 import store  from '../store';
-
 
 document.addEventListener('DOMContentLoaded', () => {
   const appContainer = document.getElementById('app-container')
   if (appContainer) {
     ReactDOM.render((
-      <Provider store={store}>
-        <Router>
-          <App>
-            <Route exact path="/admin" component={Articles} />
-            <Route path="/admin/articles/:id" component={Article}/>
-          </App>
-        </Router>
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
     ), appContainer)
   }
 

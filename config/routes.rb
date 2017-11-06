@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     devise_for :authors, controllers: { omniauth: 'admin/omniauth_callbacks' }
 
-    resources :articles, only: [:index, :show]
+    resources :articles, only: [:index, :show, :new]
     root to: "articles#index"
   end
 
