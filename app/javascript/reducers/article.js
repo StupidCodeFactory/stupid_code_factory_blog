@@ -3,22 +3,23 @@ import API from '../api';
 
 
 const getArticle = (oldState, newSliceOfState) => {
-    return Object.assign({}, oldState, newSliceOfState);
+  return Object.assign({}, oldState, newSliceOfState);
 }
 
 const initialState = {
-    status: 'NOT_FETCHED',
-    title: '',
-    body: ''
+  status: 'NOT_FETCHED',
+  title: '',
+  body: '',
+  description: ''
 };
 const article = (state = initialState, action) => {
-    switch(action.type) {
-        case types.FETCH_ARTICLE:
-            return getArticle(state, {status: 'PENDING'});
-        case types.ARTICLE_RECEIVED:
-            return getArticle(state, {status: 'RECEIVED', ...action.payload});
-        default:
-            return state;
-    }
+  switch(action.type) {
+    case types.FETCH_ARTICLE:
+      return getArticle(state, {status: 'PENDING'});
+    case types.ARTICLE_RECEIVED:
+      return getArticle(state, {status: 'RECEIVED', ...action.payload});
+    default:
+      return state;
+  }
 }
 export default article;

@@ -3,7 +3,8 @@ import {
   getArticles,
   getArticle,
   getArticlePreview,
-  updateArticle
+  updateArticle,
+  postArticle
 } from '../api';
 import _ from 'lodash';
 
@@ -56,8 +57,9 @@ export const saveArticle = (articleId, payload) => {
 }
 
 export const createArticle = (payload) => {
+  console.log(payload)
   return (dispatch) => {
-    createArticle(payload)
+    postArticle(payload)
       .then(article => {
         dispatch(fetchArticleSuccess(article))
       })

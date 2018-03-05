@@ -16,14 +16,16 @@ class NewArticle extends React.Component {
     this.state = {
       title:   this.props.article.title,
       body:    this.props.article.body,
+      description: this.props.article.description,
       preview: this.props.articlePreview.body,
       autoPreview: false
     }
 
-    this.onTitleChange  = this.onTitleChange.bind(this);
-    this.onBodyChange   = this.onBodyChange.bind(this);
-    this.onSubmit       = this.onSubmit.bind(this);
-    this.onFetchPreview = this.onFetchPreview.bind(this);
+    this.onTitleChange        = this.onTitleChange.bind(this);
+    this.onDescriptionChange  = this.onDescriptionChange.bind(this);
+    this.onBodyChange         = this.onBodyChange.bind(this);
+    this.onSubmit             = this.onSubmit.bind(this);
+    this.onFetchPreview       = this.onFetchPreview.bind(this);
   }
 
   componentWillReceiveProps(props) {
@@ -34,6 +36,10 @@ class NewArticle extends React.Component {
 
     if (_.isEmpty(this.state.title)) {
       newState['title'] = props.article.title;
+    }
+
+    if (_.isEmpty(this.state.description)) {
+      newState['description'] = props.article.description;
     }
 
     newState['preview'] = props.articlePreview.body
@@ -56,11 +62,15 @@ class NewArticle extends React.Component {
     }
 
   }
+  onDescriptionChange(event) {
+    this.setState({description: event.target.value})
+  }
 
   onSubmit(event) {
     event.preventDefault();
+
     this.props.createArticle(
-      { article: {title: this.state.title , body: this.state.body } }
+      { article: {title: this.state.title , body: this.state.body, description: this.state.description } }
     );
   }
 
@@ -69,6 +79,7 @@ class NewArticle extends React.Component {
     this.setState({autoPreview: true})
     /* this.props.fetchArticlePreview(this.props.match.params.id, {body: this.state.body});*/
   }
+
   render() {
 
     const article = this.props.article
@@ -83,7 +94,7 @@ class NewArticle extends React.Component {
       <div className="row gutters">
         <div className="col col-6 col">
           <h4>
-            New {this.state.title}
+            New Article
           </h4>
           <button onClick={this.onFetchPreview}>preview</button>
           <form className="form" onSubmit={this.onSubmit}>
@@ -92,6 +103,11 @@ class NewArticle extends React.Component {
                 <label htmlFor="articleTitle">Title</label>
                 <input id="articleTitle" type="text" onChange={this.onTitleChange} value={this.state.title}/>
               </div>
+              <div className="form-item">
+                <label htmlFor="articleDescription">Description</label>
+                <input id="articleDescription" type="text" onChange={this.onDescriptionChange} value={this.state.description}/>
+              </div>
+
               <div className="form-item">
                 <label htmlFor="articleBody">Body</label>
                 <textarea id="articleBody" onChange={this.onBodyChange} value={this.state.body} >
@@ -132,7 +148,7 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps, {
-    /* fetchArticlePreview,*/
+    fetchArticlePreview,
     createArticle
   }
 )(NewArticle);

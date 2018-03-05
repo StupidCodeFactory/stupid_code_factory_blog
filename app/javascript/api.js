@@ -46,11 +46,11 @@ export const updateArticle = (articleId, payload) => {
     })
 }
 
-export const createArticle = (payload) => {
+export const postArticle = (payload) => {
   const headers    = {"Content-Type": "application/json"};
   const authHeader = Authentication.authenticityHeaders(headers);
   return fetch(
-    `/api/articles/new.json`,
+    `/api/articles.json`,
     {
       method: 'POST',
       body: JSON.stringify(payload),

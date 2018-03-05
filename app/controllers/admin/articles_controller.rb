@@ -5,11 +5,17 @@ class Admin::ArticlesController < ApplicationController
     @articles = Article.all
   end
 
-  def new
-
+  def create
+    Article.create!(article_params)
   end
 
   def show
     @article = Article.find(params.require(:id))
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :description, :body)
   end
 end
